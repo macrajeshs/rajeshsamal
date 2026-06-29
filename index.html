@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rajesh Samal – Enterprise Architect & AI Platform Leader</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0f1e;
+      --surface: #111827;
+      --surface2: #1a2332;
+      --border: #1e2d45;
+      --accent: #3b82f6;
+      --accent2: #8b5cf6;
+      --accent3: #06b6d4;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --highlight: #f59e0b;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE + GRID BACKGROUND ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: -1;
+      background-image:
+        radial-gradient(ellipse 80% 60% at 20% 0%, rgba(59,130,246,.12) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 80% 100%, rgba(139,92,246,.10) 0%, transparent 60%),
+        linear-gradient(rgba(30,45,69,.35) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(30,45,69,.35) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 64px 64px, 64px 64px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6rem 2rem 4rem;
+    }
+
+    .hero-inner {
+      max-width: 960px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .hero-text .eyebrow {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .78rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    .hero-text .eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 28px; height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .hero-text h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #e2e8f0 40%, #93c5fd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .tagline {
+      font-size: 1.1rem;
+      color: #94a3b8;
+      margin-bottom: 1.8rem;
+      max-width: 500px;
+      font-weight: 400;
+    }
+
+    .tagline strong {
+      color: var(--accent3);
+      font-weight: 600;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .6rem;
+      margin-bottom: 2rem;
+    }
+
+    .badge {
+      padding: .35rem .85rem;
+      border-radius: 999px;
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .03em;
+      border: 1px solid;
+    }
+
+    .badge-blue  { background: rgba(59,130,246,.12); border-color: rgba(59,130,246,.4); color: #93c5fd; }
+    .badge-purple{ background: rgba(139,92,246,.12); border-color: rgba(139,92,246,.4); color: #c4b5fd; }
+    .badge-cyan  { background: rgba(6,182,212,.12);  border-color: rgba(6,182,212,.4);  color: #67e8f9; }
+    .badge-amber { background: rgba(245,158,11,.12); border-color: rgba(245,158,11,.4); color: #fcd34d; }
+
+    .cta-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: .7rem 1.6rem;
+      border-radius: .5rem;
+      font-size: .9rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      transition: all .2s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      border: none;
+    }
+
+    .btn-primary:hover { opacity: .88; transform: translateY(-1px); }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+    /* ── PHOTO CARD ── */
+    .photo-card {
+      position: relative;
+    }
+
+    .photo-card::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 1.5rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent2), var(--accent3));
+      z-index: 0;
+    }
+
+    .photo-card-inner {
+      position: relative;
+      z-index: 1;
+      border-radius: calc(1.5rem - 2px);
+      overflow: hidden;
+      background: var(--surface2);
+    }
+
+    .photo-card-inner img {
+      width: 100%;
+      height: 360px;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+
+    .photo-label {
+      padding: 1rem 1.2rem;
+      background: var(--surface2);
+      border-top: 1px solid var(--border);
+    }
+
+    .photo-label .name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text);
+    }
+
+    .photo-label .role {
+      font-size: .78rem;
+      color: var(--accent3);
+      margin-top: .15rem;
+    }
+
+    /* ── METRICS STRIP ── */
+    .metrics {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 3.5rem 2rem;
+      background: var(--surface);
+    }
+
+    .metrics-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .metric-item .number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent), var(--accent3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+
+    .metric-item .label {
+      font-size: .82rem;
+      color: var(--muted);
+      margin-top: .4rem;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 5rem 2rem;
+    }
+
+    .section-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .75rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .6rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 20px; height: 2px;
+      background: var(--accent);
+    }
+
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700;
+      margin-bottom: 2.5rem;
+      color: #f1f5f9;
+    }
+
+    /* ── LEADERSHIP PILLARS ── */
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .pillar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1.8rem;
+      transition: border-color .2s, transform .2s;
+    }
+
+    .pillar:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .pillar-icon {
+      font-size: 1.8rem;
+      margin-bottom: .8rem;
+    }
+
+    .pillar h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: .5rem;
+      color: #f1f5f9;
+    }
+
+    .pillar p {
+      font-size: .85rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ── IMPACT CARDS ── */
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .impact-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1.6rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      transition: border-color .2s;
+    }
+
+    .impact-card:hover { border-color: var(--accent2); }
+
+    .impact-card .icon-wrap {
+      width: 44px; height: 44px;
+      border-radius: .6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .impact-card .icon-wrap.blue   { background: rgba(59,130,246,.15); }
+    .impact-card .icon-wrap.purple { background: rgba(139,92,246,.15); }
+    .impact-card .icon-wrap.cyan   { background: rgba(6,182,212,.15); }
+    .impact-card .icon-wrap.amber  { background: rgba(245,158,11,.15); }
+
+    .impact-card h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .95rem;
+      font-weight: 700;
+      margin-bottom: .35rem;
+      color: #f1f5f9;
+    }
+
+    .impact-card p {
+      font-size: .82rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── SKILLS ── */
+    .skills-section { background: var(--surface); }
+
+    .skills-groups {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    .skill-group h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .78rem;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--accent3);
+      margin-bottom: .8rem;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+    }
+
+    .skill-tag {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      padding: .3rem .75rem;
+      border-radius: .4rem;
+      font-size: .8rem;
+      color: #cbd5e1;
+      font-weight: 500;
+      transition: border-color .15s, color .15s;
+    }
+
+    .skill-tag:hover { border-color: var(--accent); color: #93c5fd; }
+
+    /* ── TIMELINE ── */
+    .timeline {
+      position: relative;
+      padding-left: 1.5rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 4px; bottom: 4px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent), var(--accent2), transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2.5rem;
+      padding-left: 1.5rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -1.9rem; top: .4rem;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--bg);
+      box-shadow: 0 0 0 3px rgba(59,130,246,.3);
+    }
+
+    .timeline-item .period {
+      font-size: .75rem;
+      color: var(--accent3);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: .25rem;
+    }
+
+    .timeline-item .role {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #f1f5f9;
+    }
+
+    .timeline-item .company {
+      font-size: .85rem;
+      color: var(--muted);
+      margin-bottom: .6rem;
+    }
+
+    .timeline-item .desc {
+      font-size: .85rem;
+      color: #94a3b8;
+      line-height: 1.65;
+    }
+
+    /* ── QUOTE / PHILOSOPHY ── */
+    .philosophy {
+      background: linear-gradient(135deg, rgba(59,130,246,.08), rgba(139,92,246,.08));
+      border: 1px solid rgba(139,92,246,.25);
+      border-radius: 1.2rem;
+      padding: 3rem;
+      text-align: center;
+      margin: 5rem 2rem;
+    }
+
+    .philosophy .quote-mark {
+      font-size: 4rem;
+      line-height: .8;
+      color: var(--accent2);
+      font-family: Georgia, serif;
+      opacity: .5;
+    }
+
+    .philosophy blockquote {
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      font-style: italic;
+      color: #cbd5e1;
+      max-width: 700px;
+      margin: 1rem auto;
+      line-height: 1.7;
+    }
+
+    .philosophy cite {
+      font-size: .82rem;
+      color: var(--muted);
+      display: block;
+      margin-top: .8rem;
+      font-style: normal;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+
+    footer .footer-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: .4rem;
+    }
+
+    footer .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: .8rem;
+    }
+
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .85rem;
+      transition: color .2s;
+    }
+
+    footer a:hover { color: var(--accent); }
+
+    footer .copy {
+      font-size: .75rem;
+      color: var(--muted);
+      margin-top: 1.2rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .photo-card { max-width: 280px; margin: 0 auto; }
+      .photo-card-inner img { height: 300px; }
+      .metrics-inner { grid-template-columns: repeat(2, 1fr); }
+      .pillars { grid-template-columns: 1fr; }
+      .impact-grid { grid-template-columns: 1fr; }
+      .skills-groups { grid-template-columns: 1fr; }
+      .philosophy { padding: 2rem; margin: 3rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ HERO ═══ -->
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="eyebrow">Enterprise Architecture &amp; AI Leadership</div>
+        <h1>Rajesh Samal</h1>
+        <p class="tagline">
+          Building systems that <strong>scale at the intersection of AI, cloud, and distributed architecture</strong> — leading teams, shaping platforms, and driving enterprise transformation.
+        </p>
+        <div class="badge-row">
+          <span class="badge badge-blue">19+ Years Experience</span>
+          <span class="badge badge-purple">Agentic AI Systems</span>
+          <span class="badge badge-cyan">Distributed Architecture</span>
+          <span class="badge badge-amber">Engineering Leadership</span>
+        </div>
+        <div class="cta-row">
+          <a href="mailto:rajeshsama@gmail.com" class="btn btn-primary">
+            ✉ Get in Touch
+          </a>
+          <a href="https://linkedin.com/in/rajeshsamal" target="_blank" class="btn btn-outline">
+            ↗ LinkedIn
+          </a>
+        </div>
+      </div>
+
+      <div class="photo-card">
+        <div class="photo-card-inner">
+          <img src="photo.JPG" alt="Rajesh Samal" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+          <div style="display:none;width:100%;height:360px;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(59,130,246,.15),rgba(139,92,246,.15));font-size:5rem;">👤</div>
+          <div class="photo-label">
+            <div class="name">Rajesh Samal</div>
+            <div class="role">Director – Architecture / Principal Architect</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══ METRICS ═══ -->
+  <div class="metrics">
+    <div class="metrics-inner">
+      <div class="metric-item">
+        <div class="number">19+</div>
+        <div class="label">Years in Engineering</div>
+      </div>
+      <div class="metric-item">
+        <div class="number">80+</div>
+        <div class="label">Engineers Led</div>
+      </div>
+      <div class="metric-item">
+        <div class="number">200+</div>
+        <div class="label">Microservices Migrated</div>
+      </div>
+      <div class="metric-item">
+        <div class="number">26%</div>
+        <div class="label">Patching Velocity Gain</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ LEADERSHIP PILLARS ═══ -->
+  <section>
+    <div class="section-inner">
+      <div class="section-label">How I Lead</div>
+      <h2 class="section-title">Leadership Philosophy</h2>
+      <div class="pillars">
+        <div class="pillar">
+          <div class="pillar-icon">🏗️</div>
+          <h3>Architecture Governance</h3>
+          <p>I establish design authority and standards that keep systems coherent as they scale — giving teams autonomy within clear architectural guardrails.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">🤖</div>
+          <h3>AI-First Thinking</h3>
+          <p>I champion production-grade agentic AI systems — not as experiments, but as core operational platforms that unlock engineering leverage at scale.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">🔄</div>
+          <h3>Continuous Transformation</h3>
+          <p>I lead teams through large-scale platform migrations and modernisation with minimal disruption — keeping velocity high while reducing technical debt.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">📡</div>
+          <h3>Event-Driven at Scale</h3>
+          <p>Deep expertise in real-time, event-driven architectures that power high-throughput supply chain, travel, and logistics systems globally.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">🛠️</div>
+          <h3>Developer Enablement</h3>
+          <p>I invest in internal tooling and DevOps automation that multiplies team output — shifting engineers from toil to high-value problem solving.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">🎯</div>
+          <h3>Outcome Orientation</h3>
+          <p>Architecture decisions are always anchored to business outcomes — cost, reliability, speed-to-market — not just technical elegance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ KEY IMPACT ═══ -->
+  <section style="background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div class="section-inner">
+      <div class="section-label">Highlights</div>
+      <h2 class="section-title">Impact That Speaks</h2>
+      <div class="impact-grid">
+        <div class="impact-card">
+          <div class="icon-wrap blue">☁️</div>
+          <div>
+            <h4>Cloud Platform Migration</h4>
+            <p>Led the migration of 200+ microservices from GKE to OpenShift, improving operational control, security posture, and infrastructure cost efficiency.</p>
+          </div>
+        </div>
+        <div class="impact-card">
+          <div class="icon-wrap purple">🧠</div>
+          <div>
+            <h4>Agentic AI for DevOps</h4>
+            <p>Designed and shipped production-grade AI automation systems using multi-agent frameworks (LangGraph, CrewAI) that reduced toil and accelerated delivery pipelines.</p>
+          </div>
+        </div>
+        <div class="impact-card">
+          <div class="icon-wrap amber">⚡</div>
+          <div>
+            <h4>DevTools That Move the Needle</h4>
+            <p>Built internal developer tools that improved patching velocity by 26% — turning a compliance bottleneck into a streamlined automated workflow.</p>
+          </div>
+        </div>
+        <div class="impact-card">
+          <div class="icon-wrap cyan">📦</div>
+          <div>
+            <h4>Real-Time Supply Chain</h4>
+            <p>Architected Kafka-based event streaming platforms that power real-time visibility across global supply chain operations at enterprise scale.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PHILOSOPHY QUOTE ═══ -->
+  <div class="philosophy" style="max-width: 960px; margin: 0 auto 0; border-radius: 1.2rem; margin: 5rem auto;">
+    <div class="quote-mark">"</div>
+    <blockquote>
+      Great architecture isn't just about the technology — it's about enabling people to build things they couldn't build before. My job is to clear the path.
+    </blockquote>
+    <cite>— Rajesh Samal, Director of Architecture</cite>
+  </div>
+
+  <!-- ═══ SKILLS ═══ -->
+  <section class="skills-section">
+    <div class="section-inner">
+      <div class="section-label">Technical Depth</div>
+      <h2 class="section-title">Skills &amp; Toolkit</h2>
+      <div class="skills-groups">
+        <div class="skill-group">
+          <h4>Languages &amp; Frameworks</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">Java</span>
+            <span class="skill-tag">Spring Boot</span>
+            <span class="skill-tag">Python</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4>AI &amp; Agentic Systems</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">LangChain</span>
+            <span class="skill-tag">LangGraph</span>
+            <span class="skill-tag">CrewAI</span>
+            <span class="skill-tag">Multi-Agent Systems</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4>Cloud &amp; Platform</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">Kubernetes</span>
+            <span class="skill-tag">OpenShift</span>
+            <span class="skill-tag">Docker</span>
+            <span class="skill-tag">GKE</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4>Data &amp; Messaging</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">Kafka</span>
+            <span class="skill-tag">Redis</span>
+            <span class="skill-tag">MongoDB</span>
+            <span class="skill-tag">Event-Driven Architecture</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4>DevOps &amp; CI/CD</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">Jenkins</span>
+            <span class="skill-tag">GitHub Actions</span>
+            <span class="skill-tag">GitOps</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4>Leadership &amp; Practice</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">Enterprise Architecture</span>
+            <span class="skill-tag">Design Governance</span>
+            <span class="skill-tag">Microservices</span>
+            <span class="skill-tag">Platform Engineering</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ EXPERIENCE ═══ -->
+  <section>
+    <div class="section-inner">
+      <div class="section-label">Career</div>
+      <h2 class="section-title">Experience Timeline</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="period">May 2022 – Present</div>
+          <div class="role">Director – Architecture / Principal Architect</div>
+          <div class="company">WiseTech Global / Blume Global · Bangalore, India</div>
+          <div class="desc">Leading architecture for a 80+ engineer organisation. Driving enterprise governance, cloud-native transformations, and AI-powered DevOps automation across global logistics and supply chain platforms.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="period">Oct 2015 – May 2022</div>
+          <div class="role">Java Architect</div>
+          <div class="company">Sabre · Bangalore, India</div>
+          <div class="desc">Led backend architecture for high-scale global travel distribution systems. Designed resilient, high-availability services handling millions of transactions daily across airlines and travel providers worldwide.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="period">Sep 2014 – Oct 2015</div>
+          <div class="role">Principal Consultant</div>
+          <div class="company">NTT Data · India</div>
+          <div class="desc">Delivered enterprise modernisation and digital transformation engagements, advising clients on architecture strategy, technology selection, and large-scale system migrations.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <div class="footer-name">Rajesh Samal</div>
+    <div style="font-size:.85rem; color: var(--muted);">Enterprise Architect · AI Platforms · Distributed Systems Leader · Bangalore, India</div>
+    <div class="footer-links">
+      <a href="mailto:rajeshsama@gmail.com">✉ Email</a>
+      <a href="https://linkedin.com/in/rajeshsamal" target="_blank">LinkedIn</a>
+      <a href="https://github.com/macrajeshs" target="_blank">GitHub</a>
+    </div>
+    <div class="copy">© 2026 Rajesh Samal.</div>
+  </footer>
+
+</body>
+</html>
